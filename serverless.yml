@@ -1,0 +1,29 @@
+custom: ${file(config.yml)}
+
+provider:  
+  name: aws
+  region: eu-west-1
+  runtime: provided
+  logs:
+    restApi: true
+  cfnRole: ${self:custom.provider.cfnRole}
+  usagePlan:
+    quota:
+      limit: ${self:custom.provider.usagePlan.quota.limit}
+      period: DAY
+    throttle:
+      burstLimit: ${self:custom.provider.usagePlan.throttle.burstLimit}
+
+functions:
+  home:
+    handler: home-page.home/handler
+    memorySize: 128
+    layers: ${self:custom.functions.home.layers}
+    events:
+      - http: GET home
+
+package:
+  exclude:
+    - ./**
+  include:
+    - home_page/** # ... and just include cljs source
