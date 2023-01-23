@@ -9,6 +9,6 @@
   "author": "Carlos da Cunha Fontes",
   "devDependencies": {},
   "dependencies": {
-    "serverless": "^1.83.3"
+    "serverless": "^3.26.0"
   }
 }
